@@ -1,6 +1,6 @@
 {
   "id": "azextension",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "name": "Azure CLI extension",
   "description": "Install Azure CLI extensions",
   "options": {
