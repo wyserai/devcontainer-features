@@ -1,0 +1,23 @@
+name: 'Deploy Feature'
+on:
+  push:
+    tags:
+    - 'v*'
+
+jobs:
+  deploy: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Get tag name
+        id: get_tag_name  
+        run: echo "::set-output name=tag::$(echo "${{ github.ref }}" | grep -oP 'refs/tags/\K(.+)')"
+
+      - name: Publish
+        uses: devcontainers/action@v1
+        with:
+          publish-features: "true"
+          base-path-to-features: "./src"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
