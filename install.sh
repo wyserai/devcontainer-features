@@ -38,4 +38,8 @@ for i in "${names[@]}"
 do
     echo "Installing ${i}"
     su ${USERNAME} -c "az extension add --name ${i} -y"
+    if [ "$?" != 0 ]; then
+      err 'Failed to install az extension'
+      exit 1
+    fi
 done
