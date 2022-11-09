@@ -11,7 +11,7 @@ For example, to add the "ml" extension:
 ```jsonc
   "features": {
     "azure-cli": "latest",
-    "wyserai/devcontainer-features/azextension@v0.4": {
+    "wyserai/devcontainer-features/azextension@v0.5": {
       "names": [
         "ml"
       ]
@@ -22,10 +22,10 @@ For example, to add the "ml" extension:
 ## Release Flow
 
 ```sh
-git tag v0.4
-git push origin refs/tags/v0.4
+git tag v0.5
+git push origin refs/tags/v0.5
 ```
-Push a tag (eg `v0.4`) to your repo, which will trigger the [deploy-features action](https://github.com/microsoft/publish-dev-container-features-action) in this repo's [`deploy-features.yml` workflow file](https://github.com/microsoft/dev-container-features-template/blo    b/main/.github/workflows/deploy-features.yml).
+Push a tag (eg `v0.5`) to your repo, which will trigger the [deploy-features action](https://github.com/microsoft/publish-dev-container-features-action) in this repo's [`deploy-features.yml` workflow file](https://github.com/microsoft/dev-container-features-template/blo    b/main/.github/workflows/deploy-features.yml).
 
 Assets will be compressed and added as a release artifact with the name `devcontainer-features.tgz`.
 
