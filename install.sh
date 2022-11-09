@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-AZ_NAMES=$(NAMES:-""}
+AZ_NAMES=${NAMES:-""}
 USERNAME=${USERNAME:-"automatic"}
 
 # Setup STDERR.
