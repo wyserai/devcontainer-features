@@ -19,6 +19,12 @@ For example, to add the "ml" extension:
   }
 ```
 
+### Options
+
+| Options Id | Description                  | Type  |
+|------------|------------------------------|-------|
+| names      | List of Azure CLI extensions | array |
+
 ## Release Flow
 
 ```sh

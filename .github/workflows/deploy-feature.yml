@@ -1,4 +1,4 @@
-name: 'Deploy Features'
+name: 'Deploy Feature'
 on:
   push:
     tags:
@@ -24,5 +24,5 @@ jobs:
         with:
           allowUpdates: true # Lets us upload our own artifact from previous step
           artifactErrorsFailBuild: true
-          artifacts: './devcontainer-features.tgz'
+          artifacts: './azextension.tgz'
           token: ${{ secrets.GITHUB_TOKEN }}
