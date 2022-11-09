@@ -1,0 +1,15 @@
+{
+    "features": [
+        {
+            "id": "azextension",
+            "name": "Azure CLI extension name",
+            "options": {
+                "names": {
+                    "type": "array",
+                    "description": "Enter the names of the Azure CLI extensions you wish to add"
+                }
+            },
+            "include": ["ubuntu"]
+        }
+    ]
+}
