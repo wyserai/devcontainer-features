@@ -24,7 +24,7 @@ jobs:
 
       - name: Copy output
         run: |
-          cp /tmp/features-ouptut-*/devcontainer-feature-azextension.tgz ./azextension.tgz
+          cp /tmp/features-output-*/devcontainer-feature-azextension.tgz ./azextension.tgz
 
       - name: Get or Create Release at current tag
         uses: ncipollo/release-action@v1
