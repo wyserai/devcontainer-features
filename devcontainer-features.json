@@ -10,10 +10,10 @@
           "type": "array",
           "description": "Enter the names of the Azure CLI extensions you wish to add"
         }
-      },
-      "installsAfter": [
-        "azure-cli"
-      ]
+      }
     }
+  ],
+  "installsAfter": [
+    "azure-cli"
   ]
 }
