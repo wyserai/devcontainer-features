@@ -40,6 +40,21 @@ elif [ "${USERNAME}" = "none" ] || ! id -u ${USERNAME} > /dev/null 2>&1; then
     USERNAME=root
 fi
 
+apt_get_update() {
+    if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
+        echo "Running apt-get update..."
+        apt-get update -y
+    fi
+}
+
+# Checks if packages are installed and installs them if not
+check_packages() {
+    if ! dpkg -s "$@" > /dev/null 2>&1; then
+        apt_get_update
+        apt-get -y install --no-install-recommends "$@"
+    fi
+}
+
 if [ ! -z ${_BUILD_ARG_AZEXTENSION} ]; then
   NAMES="${_BUILD_ARG_AZEXTENSION_NAMES}" 
 
@@ -54,4 +69,21 @@ if [ ! -z ${_BUILD_ARG_AZEXTENSION} ]; then
         exit 1
       fi
   done
+fi
+
+if [ ! -z ${_BUILD_ARG_PULUMI} ]; then
+  PULUMI_VERSION=${_BUILD_ARG_PULUMI_VERSION:-"latest"}
+
+  export DEBIAN_FRONTEND=noninteractive
+  check_packages curl build-essential
+
+  if ! type git > /dev/null 2>&1; then
+    check_packages git
+  fi
+
+  if [ "$PULUMI_VERSION" = "latest" ]; then 
+    curl -fsSL https://get.pulumi.com/ | bash; 
+  else 
+    curl -fsSL https://get.pulumi.com/ | bash -s -- --version $PULUMI_VERSION ; 
+  fi
 fi

@@ -14,6 +14,26 @@
       "installsAfter": [
         "ghcr.io/devcontainers/features/azure-cli"
       ]
-    }
+    },
+    {
+       "id": "pulumi",
+       "version": "0.1.0",
+       "name": "Pulumi CLI",
+       "description": "Install Pulumi CLI",
+       "options": {
+         "version": {
+          "type": "string",
+          "proposals": [
+              "latest"
+          ],
+          "default": "latest",
+          "description": "Select or enter an Pulumi CLI version."
+         }
+       },
+       "containerEnv": {
+         "AZURE_KEYVAULT_AUTH_VIA_CLI": "true",
+         "PATH": "/pulumi/bin:${PATH}"
+       }
+     }
   ]
 }
