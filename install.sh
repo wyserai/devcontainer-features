@@ -1,7 +1,15 @@
 #!/bin/bash
 set -e
 
-AZ_NAMES=${NAMES:-""}
+# The install.sh script is the installation entrypoint for any dev container 'features' in this repository. 
+#
+# The tooling will parse the devcontainer-features.json + user devcontainer, and write 
+# any build-time arguments into a feature-set scoped "devcontainer-features.env"
+# The author is free to source that file and use it however they would like.
+set -a
+. ./devcontainer-features.env
+set +a
+
 USERNAME=${USERNAME:-"automatic"}
 
 # Setup STDERR.
@@ -32,14 +40,18 @@ elif [ "${USERNAME}" = "none" ] || ! id -u ${USERNAME} > /dev/null 2>&1; then
     USERNAME=root
 fi
 
-echo "Installing Azure CLI extensions: ${AZ_NAMES}"
-names=(`echo ${AZ_NAMES} | tr ',' ' '`)
-for i in "${names[@]}"
-do
-    echo "Installing ${i}"
-    su ${USERNAME} -c "az extension add --name ${i} -y"
-    if [ "$?" != 0 ]; then
-      err 'Failed to install az extension'
-      exit 1
-    fi
-done
+if [ ! -z ${_BUILD_ARG_AZEXTENSION} ]; then
+  NAMES="${_BUILD_ARG_AZEXTENSION_NAMES}" 
+
+  echo "Installing Azure CLI extensions: ${NAMES}"
+  names=(`echo ${NAMES} | tr ',' ' '`)
+  for i in "${names[@]}"
+  do
+      echo "Installing ${i}"
+      su ${USERNAME} -c "az extension add --name ${i} -y"
+      if [ "$?" != 0 ]; then
+        err 'Failed to install az extension'
+        exit 1
+      fi
+  done
+fi

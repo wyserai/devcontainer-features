@@ -1,0 +1,19 @@
+{
+  "features": [
+    {
+      "id": "azextension",
+      "version": "0.0.6",
+      "name": "Azure CLI extension",
+      "description": "Install Azure CLI extensions",
+      "options": {
+        "names": {
+          "type": "array",
+          "description": "Enter the names of the Azure CLI extensions you wish to add"
+        }
+      },
+      "installsAfter": [
+        "azure-cli"
+      ]
+    }
+  ]
+}

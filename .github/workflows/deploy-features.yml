@@ -1,11 +1,12 @@
-name: 'Deploy Feature'
+name: 'Deploy Features'
 on:
   push:
     tags:
     - 'v*'
 
 jobs:
-  deploy: # make sure the action works on a clean machine without building
+  deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,21 +16,14 @@ jobs:
         run: echo "::set-output name=tag::$(echo "${{ github.ref }}" | grep -oP 'refs/tags/\K(.+)')"
 
       - name: Publish dev container features
-        uses: devcontainers/action@v1
+        uses: microsoft/publish-dev-container-features-action@main
         with:
-          publish-features: "true"
-          base-path-to-features: "./src"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Copy output
-        run: |
-          cp /tmp/features-output-*/devcontainer-feature-azextension.tgz ./azextension.tgz
-
+          path-to-features: '.'
+          
       - name: Get or Create Release at current tag
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true # Lets us upload our own artifact from previous step
           artifactErrorsFailBuild: true
-          artifacts: './azextension.tgz'
+          artifacts: './devcontainer-features.tgz'
           token: ${{ secrets.GITHUB_TOKEN }}
