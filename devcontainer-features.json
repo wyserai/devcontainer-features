@@ -32,7 +32,7 @@
        },
        "containerEnv": {
          "AZURE_KEYVAULT_AUTH_VIA_CLI": "true",
-         "PATH": "/pulumi/bin:${PATH}"
+         "PATH": "/usr/local/pulumi/bin:${PATH}"
        }
      }
   ]

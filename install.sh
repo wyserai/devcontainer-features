@@ -87,6 +87,6 @@ if [ ! -z ${_BUILD_ARG_PULUMI} ]; then
     curl -fsSL https://get.pulumi.com/ | bash -s -- --version $PULUMI_VERSION ; 
   fi
 
-  mkdir -p /pulumi/bin
-  cp -r /root/.pulumi/bin /pulumi/bin
+  mkdir -p /usr/local/pulumi
+  cp -r ${HOME}/.pulumi/* /usr/local/pulumi
 fi
