@@ -2,7 +2,7 @@
   "features": [
     {
       "id": "azextension",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "name": "Azure CLI extension",
       "description": "Install Azure CLI extensions",
       "options": {
@@ -17,7 +17,7 @@
     },
     {
        "id": "pulumi",
-       "version": "0.1.0",
+       "version": "0.2.0",
        "name": "Pulumi CLI",
        "description": "Install Pulumi CLI",
        "options": {
@@ -37,9 +37,12 @@
      },
      {
        "id": "azurefunctools",
-       "version": "0.1.0",
+       "version": "0.2.0",
        "name": "Azure Function Tools",
-       "description": "Install Azure Function Tools"
+       "description": "Install Azure Function Tools",
+       "containerEnv": {
+         "FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT": "1"
+       }
      }
   ]
 }
