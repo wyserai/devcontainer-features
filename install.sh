@@ -109,12 +109,16 @@ if [ ! -z ${_BUILD_ARG_PULUMI} ]; then
 fi
 
 if [ ! -z ${_BUILD_ARG_AZUREFUNCTOOLS} ]; then
+  echo "(*) Installing Azure Functions Core Tools..."
+  . /etc/os-release
+  architecture="$(dpkg --print-architecture)"
+
   # Install dependencies
   check_packages apt-transport-https curl ca-certificates gnupg2 dirmngr
   # Import key safely (new 'signed-by' method rather than deprecated apt-key approach) and install
   get_common_setting MICROSOFT_GPG_KEYS_URI
   curl -sSL ${MICROSOFT_GPG_KEYS_URI} | gpg --dearmor > /usr/share/keyrings/microsoft-archive-keyring.gpg
-  echo "deb [arch=${architecture} signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ ${VERSION_CODENAME} main" > /etc/apt/sources.list.d/azure-cli.list
+  echo "deb [arch=${architecture} signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/debian/$(lsb_release -rs | cut -d'.' -f 1)/prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list
   apt-get update
 
   if ! (apt-get install -yq azure-functions-core-tools-4); then
