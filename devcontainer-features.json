@@ -34,6 +34,12 @@
          "AZURE_KEYVAULT_AUTH_VIA_CLI": "true",
          "PATH": "/usr/local/pulumi/bin:${PATH}"
        }
+     },
+     {
+       "id": "azurefunctools",
+       "version": "0.1.0",
+       "name": "Azure Function Tools",
+       "description": "Install Azure Function Tools"
      }
   ]
 }

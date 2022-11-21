@@ -12,6 +12,8 @@ set +a
 
 USERNAME=${USERNAME:-"automatic"}
 
+MICROSOFT_GPG_KEYS_URI="https://packages.microsoft.com/keys/microsoft.asc"
+
 # Setup STDERR.
 err() {
     echo "(!) $*" >&2
@@ -39,6 +41,21 @@ if [ "${USERNAME}" = "auto" ] || [ "${USERNAME}" = "automatic" ]; then
 elif [ "${USERNAME}" = "none" ] || ! id -u ${USERNAME} > /dev/null 2>&1; then
     USERNAME=root
 fi
+
+# Get central common setting
+get_common_setting() {
+    if [ "${common_settings_file_loaded}" != "true" ]; then
+        curl -sfL "https://aka.ms/vscode-dev-containers/script-library/settings.env" 2>/dev/null -o /tmp/vsdc-settings.env || echo "Could not download settings file. Skipping."
+        common_settings_file_loaded=true
+    fi
+    if [ -f "/tmp/vsdc-settings.env" ]; then
+        local multi_line=""
+        if [ "$2" = "true" ]; then multi_line="-z"; fi
+        local result="$(grep ${multi_line} -oP "$1=\"?\K[^\"]+" /tmp/vsdc-settings.env | tr -d '\0')"
+        if [ ! -z "${result}" ]; then declare -g $1="${result}"; fi
+    fi
+    echo "$1=${!1}"
+}
 
 apt_get_update() {
     if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
@@ -89,4 +106,19 @@ if [ ! -z ${_BUILD_ARG_PULUMI} ]; then
 
   mkdir -p /usr/local/pulumi
   cp -r ${HOME}/.pulumi/* /usr/local/pulumi
+fi
+
+if [ ! -z ${_BUILD_ARG_AZUREFUNCTOOLS} ]; then
+  # Install dependencies
+  check_packages apt-transport-https curl ca-certificates gnupg2 dirmngr
+  # Import key safely (new 'signed-by' method rather than deprecated apt-key approach) and install
+  get_common_setting MICROSOFT_GPG_KEYS_URI
+  curl -sSL ${MICROSOFT_GPG_KEYS_URI} | gpg --dearmor > /usr/share/keyrings/microsoft-archive-keyring.gpg
+  echo "deb [arch=${architecture} signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/azure-cli/ ${VERSION_CODENAME} main" > /etc/apt/sources.list.d/azure-cli.list
+  apt-get update
+
+  if ! (apt-get install -yq azure-functions-core-tools-4); then
+    rm -f /etc/apt/sources.list.d/azure-cli.list
+    return 1
+  fi
 fi
