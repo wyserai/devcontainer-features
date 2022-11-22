@@ -1,0 +1,10 @@
+{
+  "features": [
+    {
+       "id": "msttcorefonts",
+       "version": "0.1.0",
+       "name": "Microsoft's TrueType core fonts",
+       "description": "Install Microsoft's TrueType core fonts"
+     }
+  ]
+}

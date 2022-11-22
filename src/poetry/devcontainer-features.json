@@ -1,0 +1,20 @@
+{
+  "features": [
+    {
+       "id": "poetry",
+       "version": "0.1.0",
+       "name": "Poetry",
+       "description": "Poetry is a tool for dependency management and packaging in Python.",
+       "options": {
+        "version": {
+            "type": "string",
+            "proposals": [
+                "latest"
+            ],
+            "default": "latest",
+            "description": "Select the version of Poetry to install."
+          }
+        }
+     }
+  ]
+}

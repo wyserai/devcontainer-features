@@ -34,6 +34,20 @@ jobs:
           path-to-features: './src/azurefunctools'
       - name: Rename azurefunctools
         run: mv ./devcontainer-features.tgz ./devcontainer-feature-azurefunctools.tgz
+
+      - name: Publish msttcorefonts
+        uses: microsoft/publish-dev-container-features-action@main
+        with:
+          path-to-features: './src/msttcorefonts'
+      - name: Rename msttcorefonts
+        run: mv ./devcontainer-features.tgz ./devcontainer-feature-msttcorefonts.tgz
+
+      - name: Publish poetry
+        uses: microsoft/publish-dev-container-features-action@main
+        with:
+          path-to-features: './src/poetry'
+      - name: Rename poetry
+        run: mv ./devcontainer-features.tgz ./devcontainer-feature-poetry.tgz
           
       - name: Get or Create Release at current tag
         uses: ncipollo/release-action@v1
