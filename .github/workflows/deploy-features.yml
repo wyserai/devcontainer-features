@@ -14,15 +14,31 @@ jobs:
         id: get_tag_name  
         run: echo "::set-output name=tag::$(echo "${{ github.ref }}" | grep -oP 'refs/tags/\K(.+)')"
 
-      - name: Publish dev container features
+      - name: Publish azextension 
         uses: microsoft/publish-dev-container-features-action@main
         with:
-          path-to-features: '.'
+          path-to-features: './src/azextension'
+      - name: Rename azextension
+        run: mv ./src/azextension/devcontainer-features.tgz ./azextension.tgz
+
+      - name: Publish pulumi
+        uses: microsoft/publish-dev-container-features-action@main
+        with:
+          path-to-features: './src/pulumi'
+      - name: Rename pulumi
+          run: mv ./src/pulumi/devcontainer-features.tgz ./pulumi.tgz
+
+      - name: Publish azurefunctools
+        uses: microsoft/publish-dev-container-features-action@main
+        with:
+          path-to-features: './src/azurefunctools'
+      - name: Rename azurefunctools
+         run: mv ./src/azurefunctools/devcontainer-features.tgz ./azurefunctools.tgz
           
       - name: Get or Create Release at current tag
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true # Lets us upload our own artifact from previous step
           artifactErrorsFailBuild: true
-          artifacts: './devcontainer-features.tgz'
+          artifacts: './*.tgz'
           token: ${{ secrets.GITHUB_TOKEN }}

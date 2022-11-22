@@ -1,0 +1,13 @@
+{
+  "features": [
+     {
+       "id": "azurefunctools",
+       "version": "0.2.0",
+       "name": "Azure Function Tools",
+       "description": "Install Azure Function Tools",
+       "containerEnv": {
+         "FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT": "1"
+       }
+     }
+  ]
+}
