@@ -94,11 +94,11 @@ else
     PIPX_COMMAND=pipx
 fi
 
-if [ "$POETRY" != "none" ]; then
-    if [ "$POETRY" =  "latest" ]; then
+if [ "$POETRY_VERSION" != "none" ]; then
+    if [ "$POETRY_VERSION" =  "latest" ]; then
         util_command="poetry"
     else
-        util_command="poetry==$POETRY"
+        util_command="poetry==$POETRY_VERSION"
     fi
     "${PIPX_COMMAND}" install --system-site-packages --force --pip-args '--no-cache-dir --force-reinstall' ${util_command}
 
