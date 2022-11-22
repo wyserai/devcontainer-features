@@ -31,6 +31,7 @@ apt_get_update() {
 # Checks if packages are installed and installs them if not
 check_packages() {
     if ! dpkg -s "$@" > /dev/null 2>&1; then
+        echo 'deb http://deb.debian.org/debian bullseye contrib' >> /etc/apt/sources.list
         apt_get_update
         debconf-set-selections <<< "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" && \
         apt-get -y install --no-install-recommends "$@"
