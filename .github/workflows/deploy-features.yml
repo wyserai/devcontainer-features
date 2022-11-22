@@ -26,14 +26,14 @@ jobs:
         with:
           path-to-features: './src/pulumi'
       - name: Rename pulumi
-          run: mv ./src/pulumi/devcontainer-features.tgz ./pulumi.tgz
+        run: mv ./src/pulumi/devcontainer-features.tgz ./pulumi.tgz
 
       - name: Publish azurefunctools
         uses: microsoft/publish-dev-container-features-action@main
         with:
           path-to-features: './src/azurefunctools'
       - name: Rename azurefunctools
-         run: mv ./src/azurefunctools/devcontainer-features.tgz ./azurefunctools.tgz
+        run: mv ./src/azurefunctools/devcontainer-features.tgz ./azurefunctools.tgz
           
       - name: Get or Create Release at current tag
         uses: ncipollo/release-action@v1
