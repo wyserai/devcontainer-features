@@ -1,0 +1,10 @@
+{
+  "features": [
+    {
+       "id": "strongswan",
+       "version": "0.1.0",
+       "name": "strongSwan",
+       "description": "Install strongSwan IPsec VPN"
+     }
+  ]
+}

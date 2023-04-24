@@ -41,6 +41,13 @@ jobs:
           path-to-features: './src/msttcorefonts'
       - name: Rename msttcorefonts
         run: mv ./devcontainer-features.tgz ./devcontainer-feature-msttcorefonts.tgz
+
+      - name: Publish strongswan
+        uses: microsoft/publish-dev-container-features-action@main
+        with:
+          path-to-features: './src/strongswan'
+      - name: Rename strongswan
+        run: mv ./devcontainer-features.tgz ./devcontainer-feature-strongswan.tgz
           
       - name: Get or Create Release at current tag
         uses: ncipollo/release-action@v1
